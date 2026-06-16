@@ -6,7 +6,14 @@
 using namespace std;
 
 void printPrompt() {
-    cout << "cssc3101% ";
+    char* user = getenv("USER");
+
+    if (user != nullptr) {
+        cout << user << "% ";
+    }
+    else {
+        cout << "xsh% ";
+    }
 };
 
 string readInput() {
