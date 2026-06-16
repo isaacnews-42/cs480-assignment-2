@@ -4,4 +4,6 @@ project(cs480-assignment-2)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(cs480-assignment-2 main.cpp
-        xsh.h)
+        xsh.h
+        parser.cpp
+        executor.cpp)
