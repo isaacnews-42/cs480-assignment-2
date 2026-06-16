@@ -1,6 +1,7 @@
 //
 // Created by Zakaria Abdullahi on 6/13/26.
 //
+#include "xsh.h"
 #include <iostream>
 #include <string>
 
@@ -31,6 +32,13 @@ int main() {
             break;
         }
         cout << "You typed: " << input << endl;
+
+        // CommandLine commandLine = parseInput(input);
+        // if (!commandLine.valid) {
+        //     cout << "Invalid command..." << endl;
+        //     continue;
+        // }
+        // executeCommand(commandLine);
     }
     return 0;
 }
