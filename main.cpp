@@ -31,14 +31,14 @@ int main() {
             cout << "Goodbye!" << endl;
             break;
         }
-        cout << "You typed: " << input << endl;
+        // cout << "You typed: " << input << endl;
 
-        // CommandLine commandLine = parseInput(input);
-        // if (!commandLine.valid) {
-        //     cout << "Invalid command..." << endl;
-        //     continue;
-        // }
-        // executeCommand(commandLine);
+        CommandLine commandLine = parseInput(input);
+        if (!commandLine.valid) {
+            cout << "Invalid command..." << endl;
+            continue;
+        }
+        executeCommand(commandLine);
     }
     return 0;
 }
