@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(cs480-assignment-2 main.cpp
         xsh.h
-        parser.cpp
+        parzer.cpp
         executor.cpp)

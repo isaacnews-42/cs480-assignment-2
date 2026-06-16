@@ -14,9 +14,14 @@ CommandLine parseInput(const string& input) {
 
     while (ss >> word) {
         words.push_back(word);
+        if (words.empty()) {
+            cout << "Invalid command... ";
+            continue;
+        }
         Command command;
         command.program = word;
         commandLine.commands.push_back(command);
+
     }
 
     return commandLine;
