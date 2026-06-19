@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sstream>
+#include <array>
 #include "parser.h"
 
 int main() {
@@ -44,18 +46,18 @@ int main() {
 
     	if (t.empty()) {
         	cerr << "Invalid null command\n";
-        	goto next_loop;
+        	continue;
     	}
 
     	if (t.size() > 2) {
         	cerr << "Too many arguments\n";
-        	goto next_loop;
+        	continue;
     	}
 
 	if (t[0].find('/') != string::npos) {
     	if (access(t[0].c_str(), X_OK) != 0) {
         	cerr << "Command not found\n";
-        	goto next_loop;
+        	continue;
     	}
 	}
 
@@ -78,7 +80,7 @@ int main() {
 	for (int i = 0; i < n - 1; i++) {
     	if (pipe(pipes[i].data()) < 0) {
         	perror("pipe");
-        	goto next_loop;
+        	continue;
    	}
    }
 vector<pid_t> pids;
@@ -88,7 +90,7 @@ for (int i = 0; i < n; i++) {
 
     if (pid < 0) {
         perror("fork");
-        goto next_loop;
+        continue;
     }
 
     if (pid == 0) {
@@ -123,7 +125,7 @@ for (pid_t pid : pids) {
     waitpid(pid, NULL, 0);
 }
 	continue;
-	}else{
+	} else{
 		
 
         vector<string> tokens = parse_command(line);
@@ -137,51 +139,11 @@ for (pid_t pid : pids) {
     		continue;
 	}
 
-	if (access(tokens[0].c_str(), X_OK) != 0) {
-    		cerr << "Command not found\n";
-    		continue;
-	}
-
-	size_t pos = line.find('|');
-	if (pos != string::npos) {
-    	string Ls = line.substr(0, pos);
-    	string Rs = line.substr(pos + 1);
-
-    	vector<string> L = parse_command(Ls);
-    	vector<string> R = parse_command(Rs);
-
-	if (L.size() > 2 || R.size() > 2) {
-    		cerr << "Too many arguments\n";
-    		continue;
-	}
-
-
-
-    	vector<char*> LA, RA;
-    	for (auto &t : L) LA.push_back((char*)t.c_str());
-    	for (auto &t : R) RA.push_back((char*)t.c_str());
-    	LA.push_back(NULL);
-    	RA.push_back(NULL);
-
-    	int fd[2]; pipe(fd);
-
-    	if (fork() == 0) {
-        	dup2(fd[1], 1);
-        	close(fd[0]);
-        	execvp(LA[0], LA.data());
-        	_exit(1);
+	if (tokens[0].find('/') != string::npos) {
+    	if (access(tokens[0].c_str(), X_OK) != 0) {
+        	cerr << "Command not found\n";
+        	continue;
     	}
-
-    	if (fork() == 0) {
-        	dup2(fd[0], 0);
-        	close(fd[1]);
-        	execvp(RA[0], RA.data());
-        	_exit(1);
-    	}
-
-    	close(fd[0]); close(fd[1]);
-    	wait(NULL); wait(NULL);
-    	continue;
 	}
 
 	vector<char*> args;
@@ -205,11 +167,6 @@ for (pid_t pid : pids) {
         }
 	continue;
 
-	next_loop:
-        continue;
     }
-
-
-
     return 0;
 }
