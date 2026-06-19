@@ -1,6 +1,6 @@
-# CS 480-assignment-2
-Zakaria Abdullahi -- cssc3101
-Issac Afram -- cssc3103
+# CS480 Assignment-2
+- Zakaria Abdullahi -- cssc3101
+- Issac Afram -- cssc3103
 
 # Files #
 - main.cpp: Contains the main shell loop.
