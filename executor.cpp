@@ -4,12 +4,43 @@
 #include "xsh.h"
 #include <unistd.h>
 #include <sys/wait.h>
-#include <cstdlib>
 
 
-void executePipedCommand(const vector<Command>& commands) {
-    int numCommands = commands.size();
-    int numPipes = numCommands - 1;
+void executePipedCommand(const CommandLine& commandLine) {
+    int numCommands = commandLine.commands.size();
+    int pipefd[2];
+    pipe(pipefd);
+
+    pid_t firstPid = fork();
+    if (firstPid == 0) {
+        dup2(pipefd[1], STDOUT_FILENO);
+        close(pipefd[0]);
+        close(pipefd[1]);
+
+        execlp(commandLine.commands[0].program.c_str(),
+            commandLine.commands[0].program.c_str(),
+            nullptr);
+        perror("exec failed");
+        exit(1);
+    }
+
+    pid_t secondPid = fork();
+    if (secondPid == 0) {
+        dup2(pipefd[0], STDIN_FILENO);
+        close(pipefd[0]);
+        close(pipefd[1]);
+
+        execlp(commandLine.commands[1].program.c_str(),
+            commandLine.commands[1].program.c_str(),
+            nullptr);
+        perror("exec failed");
+        exit(1);
+    }
+    close(pipefd[0]);
+    close(pipefd[1]);
+
+    waitpid(firstPid,nullptr,0);
+    waitpid(secondPid,nullptr,0);
 }
 
 
@@ -18,7 +49,7 @@ void executeCommand(const CommandLine& commandLine) {
         return;
     }
     if (commandLine.hasPipe) {
-        executePipedCommand(commandLine.commands);
+        executePipedCommand(commandLine);
     }
 
     Command command = commandLine.commands[0];
