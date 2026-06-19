@@ -1,20 +1,8 @@
 //
 // Created by Zakaria Abdullahi on 6/15/26.
+// Zakaria Abdullahi -- Cssc3101
+// Isaac Afram  --  Cssc3103
 //
-//
-// #ifndef XSH_H
-//
-// #define XSH_H
-//
-// #include <string>
-//
-// void printPrompt();
-//
-// std::string readInput();
-//
-// #endif
-
-
 #ifndef CS480_ASSIGNMENT_2_Z_XSH_H
 #define CS480_ASSIGNMENT_2_Z_XSH_H
 

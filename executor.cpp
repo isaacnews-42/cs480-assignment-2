@@ -1,5 +1,7 @@
 //
 // Created by Zakaria Abdullahi on 6/15/26.
+// Zakaria Abdullahi -- Cssc3101
+// Isaac Afram  --  Cssc3103
 //
 #include "xsh.h"
 #include <unistd.h>
@@ -7,7 +9,6 @@
 
 
 void executePipedCommand(const CommandLine& commandLine) {
-    int numCommands = commandLine.commands.size();
     int pipefd[2];
     pipe(pipefd);
 

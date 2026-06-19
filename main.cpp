@@ -1,10 +1,11 @@
 //
 // Created by Zakaria Abdullahi on 6/13/26.
+// Zakaria Abdullahi -- Cssc3101
+// Isaac Afram  --  Cssc3103
 //
 #include "xsh.h"
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 void printPrompt() {
@@ -12,9 +13,7 @@ void printPrompt() {
     if (user != nullptr) {
         cout << user << "% ";
     }
-    else {
-        cout << "xsh% ";
-    }
+    else { cout << "xsh% ";}
 }
 
 string readInput() {
@@ -31,8 +30,6 @@ int main() {
             cout << "Goodbye!" << endl;
             break;
         }
-        // cout << "You typed: " << input << endl;
-
         CommandLine commandLine = parseInput(input);
         if (!commandLine.valid) {
             cout << "Invalid command..." << endl;

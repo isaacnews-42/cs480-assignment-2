@@ -1,5 +1,7 @@
 //
 // Created by Zakaria Abdullahi on 6/15/26.
+// Zakaria Abdullahi -- Cssc3101
+// Isaac Afram  --  Cssc3103
 //
 #include "xsh.h"
 #include <sstream>
@@ -25,7 +27,7 @@ CommandLine parseInput(const string& input) {
     for (int i = 0; i < words.size(); i++) {
         // If current word is a pipe, check to see if commandline is empty.
         // If empty, trigger invalid command. If not empty, add command to
-        // commands and update hasPipe flags. //
+        // commands and update hasPipe flag. //
 
         if (words[i] == "|") {
             if (command.program.empty()) {
