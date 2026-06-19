@@ -14,3 +14,4 @@
 - Compile the project using "make" which produces an executable file "xsh"
 - Clean build using "make clean"
 - Run the shell using "./xsh"
+- Exit shell by typing "exit"
