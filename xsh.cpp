@@ -52,9 +52,11 @@ int main() {
         	goto next_loop;
     	}
 
-	if (access(t[0].c_str(), X_OK) != 0) {
-    	cerr << "Command not found\n";
-    	goto next_loop;
+	if (t[0].find('/') != string::npos) {
+    	if (access(t[0].c_str(), X_OK) != 0) {
+        	cerr << "Command not found\n";
+        	goto next_loop;
+    	}
 	}
 
     	cmds.push_back(t);
@@ -120,7 +122,9 @@ for (int i = 0; i < n - 1; i++) {
 for (pid_t pid : pids) {
     waitpid(pid, NULL, 0);
 }
-    	continue;
+	continue;
+	}else{
+		
 
         vector<string> tokens = parse_command(line);
 
