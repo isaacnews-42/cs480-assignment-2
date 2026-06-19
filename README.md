@@ -15,3 +15,6 @@
 - Clean build using "make clean"
 - Run the shell using "./xsh"
 - Exit shell by typing "exit"
+
+# Description #
+In this assignment we implemented an experimental shell (XSH) using POSIX system calls such as fork(), exec(), pipe(), and waitpid(). The shell is capable of executing commands, handling command-line arguments, and supporting piped commands between processes. Throughout our development, we met periodically over Discord to pair program, discuss implementation details, and troubleshoot issues together. We also used the fork() & exec() and other reference materials provided as a guide. Isaac primarily worked on xsh.cpp and parser.h, while Zakaria worked on the remaining source files, while both partners were involved in testing and integration. Through this assignment we gained experience building a simplified Unix-style shell, understanding process management and inter-process communication.
